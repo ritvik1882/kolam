@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+body {
+  margin: 0;
+  overflow: hidden;
+  background-color: #0a0a0a;
+  font-family: 'Cormorant Garamond', serif;
+}
+
+#bg-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  outline: none;
+}
+
+#content {
+  height: 100vh;
+}
+
+#title {
+  margin-top: 45vh;
+  margin-bottom: 5vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#buttons {
+  display: flex;
+  gap: 20vh;
+}
+
+#generate {
+  margin-left: auto;
+}
+
+#info {
+  margin-right: auto;
+}
+
+#title h1 {
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.2)
+}
