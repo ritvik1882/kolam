@@ -1,0 +1,20 @@
+*,
+*::after,
+*::before {
+	box-sizing: border-box;
+}
+
+:root {
+	font-size: 16px;
+}
+
+body {
+	height: 100vh;
+	margin: 0;
+	overflow: hidden;
+	background-color: #0f0f0f;
+	color: #fff;
+	font-family: Futura, "futura-pt", Arial, sans-serif;
+	-webkit-font-smoothing: antialiased;
+}
+
