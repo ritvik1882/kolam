@@ -13,6 +13,10 @@ export default class WebGLView {
 		// visual gap from screen edges in pixels
 		this.gutter = 48;
 
+		// radians per second
+		this.rotationSpeed = 0.03; // Initialize with a default value
+		this.disableRotation = false; // New property for the checkbox
+
         // For testing
 		this.samples = [
 			'/images/1.png',
@@ -30,6 +34,9 @@ export default class WebGLView {
 		this.initThree();
 		this.initParticles();
 		this.initControls();
+
+		// Store initial rotation (0 radians) after particles are initialized
+		this.initialContainerRotationZ = 0;
 
 		const rnd = ~~(Math.random() * this.samples.length);
 		this.goto(rnd);
@@ -68,6 +75,14 @@ export default class WebGLView {
 
 		if (this.particles) {
 			this.particles.update(delta);
+
+			if (this.disableRotation) {
+				// Revert to initial state (0 radians) if rotation is disabled
+				this.particles.container.rotation.z = this.initialContainerRotationZ;
+			} else if (this.rotationSpeed !== 0) {
+				// Apply rotation only if not disabled and speed is not zero
+				this.particles.container.rotation.z += this.rotationSpeed * delta;
+			}
 		}
 	}
 
