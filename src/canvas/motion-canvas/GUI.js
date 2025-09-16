@@ -12,7 +12,7 @@ export default class GUI {
 
 		this.touchRadius = 0.2;
 		this.rotationSpeed = 0.03;
-		this.disableRotation = false; // New property for disable rotation checkbox
+		this.disableRotation = false;
 
 
 		this.range = [0, 1];
@@ -23,57 +23,34 @@ export default class GUI {
 		this.rangeRotationSpeed = [0, 0.5];
 
 		this.initLilGUI();
-		// this.initStats(); // Commented out initStats
-
-		// this.disable();
 	}
 
 	initLilGUI() {
 		this.gui = new LilGUI({ width: 300 });
-		// this.gui.hide(); // Removed to make GUI visible by default
+		// this.gui.hide(); // Hides GUI by default
 
 		this.gui.add(this, 'touchRadius', this.rangeRadius[0], this.rangeRadius[1]).name('Touch radius').onChange(this.onTouchChange.bind(this));
-
-		// lil-gui doesn't have a direct equivalent for addCanvas, so this functionality is removed for now.
-		// If needed, a custom solution would be required.
-
-		this.gui.add(this, 'particlesRandom', this.rangeRandom[0], this.rangeRandom[1]).name('Noise').onChange(this.onParticlesChange.bind(this));
+        this.gui.add(this, 'particlesRandom', this.rangeRandom[0], this.rangeRandom[1]).name('Noise').onChange(this.onParticlesChange.bind(this));
 		this.gui.add(this, 'particlesDepth', this.rangeDepth[0], this.rangeDepth[1]).name('Depth').onChange(this.onParticlesChange.bind(this));
 		this.gui.add(this, 'particlesSize', this.rangeSize[0], this.rangeSize[1]).name('Particle size').onChange(this.onParticlesChange.bind(this));
 		this.gui.add(this, 'rotationSpeed', this.rangeRotationSpeed[0], this.rangeRotationSpeed[1]).name('Rotation Speed').onChange(this.onRotationSpeedChange.bind(this));
 		this.gui.add(this, 'disableRotation').name('Disable Rotation').onChange(this.onDisableRotationChange.bind(this));
-
-		// The touchCanvas and touchCtx logic is removed as lil-gui does not expose this directly.
 	}
-
-
-	// initStats() { // Commented out initStats method
-	// 	this.stats = new Stats();
-
-	// 	document.body.appendChild(this.stats.dom);
-	// }
 
 	// ---------------------------------------------------------------------------------------------
 	// PUBLIC
 	// ---------------------------------------------------------------------------------------------
 
-	update() {
-		// The logic for drawing touch texture is removed as lil-gui does not support it directly.
-		// If this visualization is critical, it would need to be implemented separately.
-		// if (this.stats) this.stats.begin(); // Removed stats.js usage
-		// if (this.stats) this.stats.end(); // Removed stats.js usage
-	}
+	update() {}
 
 	enable() {
 		this.gui.show();
 		this.gui.hidden = false;
-		// if (this.stats) this.stats.dom.style.display = ''; // Removed stats.js usage
 	}
 
 	disable() {
 		this.gui.hide();
 		this.gui.hidden = true;
-		// if (this.stats) this.stats.dom.style.display = 'none'; // Removed stats.js usage
 	}
 
 	toggle() {
@@ -95,8 +72,6 @@ export default class GUI {
 		this.app.webgl.particles.object3D.material.uniforms.uRandom.value = this.particlesRandom;
 		this.app.webgl.particles.object3D.material.uniforms.uDepth.value = this.particlesDepth;
 		this.app.webgl.particles.object3D.material.uniforms.uSize.value = this.particlesSize;
-
-		// this.app.webgl.particles.hitArea.material.visible = this.particlesHitArea; // This was commented out in original
 	}
 
 	onRotationSpeedChange() {
@@ -113,8 +88,4 @@ export default class GUI {
 		}
 	}
 
-	onPostProcessingChange() {
-		if (!this.app.webgl.composer) return;
-		this.app.webgl.composer.enabled = this.postProcessing;
-	}
 }

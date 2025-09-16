@@ -13,14 +13,10 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.13",
-    "browser-detect": "^0.2.28",
-    "domready": "^1.0.8",
-    "eventemitter3": "^4.0.7",
-    "glsl-noise": "0.0.0",
-    "gsap": "^3.13.0",
+    "three": "^0.180.0",
     "lil-gui": "^0.19.1",
-    "stats.js": "^0.17.0",
-    "tailwindcss": "^4.1.13",
-    "three": "^0.180.0"
+    "gsap": "^3.13.0",
+    "domready": "^1.0.8",
+    "eventemitter3": "^4.0.7"
   }
 }

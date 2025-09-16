@@ -3,12 +3,10 @@ import GUI from './motion-canvas/GUI';
 
 export default class App {
 
-	constructor() {
-
-	}
+	constructor() {}
 
 	init() {
-		this.initGUI(); // Initialize GUI first
+		this.initGUI();
 		this.initWebGL();
 		this.addListeners();
 		this.animate();

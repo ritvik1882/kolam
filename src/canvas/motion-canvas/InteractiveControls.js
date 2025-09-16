@@ -1,6 +1,5 @@
 import { EventEmitter } from 'eventemitter3';
 import * as THREE from 'three';
-
 import { passiveEvent } from '../utils/event.utils.js';
 
 export default class InteractiveControls extends EventEmitter {
@@ -24,7 +23,6 @@ export default class InteractiveControls extends EventEmitter {
 		this.hovered = null;
 		this.selected = null;
 
-		this.isDown = false;
 
 		this.enable();
 	}

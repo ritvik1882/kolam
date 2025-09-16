@@ -1,24 +1,19 @@
 import * as THREE from 'three';
-import gsap from 'gsap';
-
 import InteractiveControls from './InteractiveControls';
 import Particles from '../motion/Particles';
-
 
 export default class WebGLView {
 
 	constructor(app, gui) {
 		this.app = app;
-		this.gui = gui; // Store the passed gui instance
 
-		// visual gap from screen edges in pixels
-		this.gutter = 48;
+		this.gutter = 48; // visual gap from screen edges in pixels
 
 		// radians per second
 		this.rotationSpeed = 0.03; // Initialize with a default value
 		this.disableRotation = false; // New property for the checkbox
 
-        // For testing
+        // Designs for testing (final version will fetch design from backend
 		this.samples = [
 			'/images/1.png',
 			'/images/2.png',
