@@ -10,7 +10,7 @@ export default class GUI {
 		this.particlesDepth = 2;
 		this.particlesSize = 0.3;
 
-		this.touchRadius = 0.3;
+		this.touchRadius = 0.2;
 		this.rotationSpeed = 0.03;
 		this.disableRotation = false; // New property for disable rotation checkbox
 

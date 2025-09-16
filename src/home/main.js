@@ -1,4 +1,5 @@
-import { init, animate } from "./startupEffect.js";
+import { init, animate } from "./particleAnimation.js";
+// import { init, animate } from "./linesAnimation.js";
 
 const canvas = document.querySelector('#bg-canvas');
 const title = document.querySelector('#title');
