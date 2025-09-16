@@ -66,11 +66,13 @@ export default class GUI {
 
 	enable() {
 		this.gui.show();
+		this.gui.hidden = false;
 		// if (this.stats) this.stats.dom.style.display = ''; // Removed stats.js usage
 	}
 
 	disable() {
 		this.gui.hide();
+		this.gui.hidden = true;
 		// if (this.stats) this.stats.dom.style.display = 'none'; // Removed stats.js usage
 	}
 
