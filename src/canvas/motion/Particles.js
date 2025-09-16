@@ -124,9 +124,9 @@ export default class Particles {
 
 		const uniforms = {
 			uTime: { value: 0 },
-			uRandom: { value: 2.0 },
+			uRandom: { value: 1.0 },
 			uDepth: { value: 2.0 },
-			uSize: { value: 0.3 },
+			uSize: { value: 0.0 },
 			uTextureSize: { value: new THREE.Vector2(this.width, this.height) },
 			uTexture: { value: this.texture },
 			uTouch: { value: null },
@@ -226,18 +226,35 @@ export default class Particles {
 		if (this.touch) this.touch.update();
 
 		this.object3D.material.uniforms.uTime.value += delta;
+
+		// apply slow rotation around Z so the design rotates as a whole
+		if (this.container) {
+			this.container.rotation.z += this.webgl.rotationSpeed * delta;
+		}
 	}
 
 	show(time = 1.0) {
+		// apply GUI targets first so initial state matches the panel
+		const app = this.webgl && this.webgl.app;
+		const gui = app && app.gui ? app.gui : null;
 		const uniforms = this.object3D.material.uniforms;
 
-		uniforms.uRandom.value = 2.0;
-		uniforms.uDepth.value = 2.0;
-		uniforms.uSize.value = 0.3;
+		const targetSize = gui ? gui.particlesSize : uniforms.uSize.value;
+		const targetRandom = gui ? gui.particlesRandom : uniforms.uRandom.value;
+		const targetDepth = gui ? gui.particlesDepth : uniforms.uDepth.value;
+
+		uniforms.uRandom.value = targetRandom;
+		uniforms.uDepth.value = targetDepth;
+		uniforms.uSize.value = targetSize; // Set to targetSize directly for immediate visibility
+
+		// If an entrance animation is desired, it can be added here, e.g.:
+		// uniforms.uSize.value = 0.0;
+		// gsap.to(uniforms.uSize, {duration: time, value: targetSize });
 
 		this.addListeners();
 
-		if (this.touch) this.touch.radius = 0.3;
+		// ensure touch radius is synced
+		if (gui) gui.onTouchChange();
 	}
 
 	hide(_destroy, time = 0.8) {

@@ -7,8 +7,9 @@ import Particles from '../motion/Particles';
 
 export default class WebGLView {
 
-	constructor(app) {
+	constructor(app, gui) {
 		this.app = app;
+		this.gui = gui; // Store the passed gui instance
 
 		// visual gap from screen edges in pixels
 		this.gutter = 48;

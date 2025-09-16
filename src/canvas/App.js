@@ -1,4 +1,5 @@
 import WebGLView from './motion-canvas/WebGLView';
+import GUI from './motion-canvas/GUI';
 
 export default class App {
 
@@ -7,6 +8,7 @@ export default class App {
 	}
 
 	init() {
+		this.initGUI(); // Initialize GUI first
 		this.initWebGL();
 		this.addListeners();
 		this.animate();
@@ -14,8 +16,12 @@ export default class App {
 	}
 
 	initWebGL() {
-		this.webgl = new WebGLView(this);
+		this.webgl = new WebGLView(this, this.gui); // Pass this.gui explicitly
 		document.querySelector('.container').appendChild(this.webgl.renderer.domElement);
+	}
+
+	initGUI() {
+		this.gui = new GUI(this);
 	}
 
 	addListeners() {
@@ -40,11 +46,14 @@ export default class App {
 	// ---------------------------------------------------------------------------------------------
 
 	update() {
+		if (this.gui.stats) this.gui.stats.begin();
 		if (this.webgl) this.webgl.update();
+		if (this.gui) this.gui.update();
 	}
 
 	draw() {
 		if (this.webgl) this.webgl.draw();
+		if (this.gui.stats) this.gui.stats.end();
 	}
 
 	// ---------------------------------------------------------------------------------------------
@@ -56,7 +65,8 @@ export default class App {
 	}
 
 	keyup(e) {
-
+		// g
+		if (e.keyCode == 71) { if (this.gui) this.gui.toggle(); }
 	}
 
 	click(e) {
