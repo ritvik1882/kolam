@@ -134,7 +134,7 @@ export default class Particles {
 
 		const material = new THREE.RawShaderMaterial({
 			uniforms,
-			vertexShader: snoise2 + particleVert.replace('#pragma glslify: snoise2 = require(glsl-noise/simplex/2d)', '').replace(/displaced\.z \+= rndz \* \(random\(pindex\) \* 2\.0 \* uDepth\);/g, '// displaced.z += rndz * (random(pindex) * 2.0 * uDepth);').replace(/displaced\.z \+= t \* 20\.0 \* rndz;/g, '// displaced.z += t * 20.0 * rndz;').replace(/displaced\.x \+= cos\(angle\) \* t \* 20\.0 \* rndz;/g, '// displaced.x += cos(angle) * t * 20.0 * rndz;').replace(/displaced\.y \+= sin\(angle\) \* t \* 20\.0 \* rndz;/g, '// displaced.y += sin(angle) * t * 20.0 * rndz;'),
+			vertexShader: snoise2 + particleVert.replace('#pragma glslify: snoise2 = require(glsl-noise/simplex/2d)', ''),
 			fragmentShader: particleFrag,
 			depthTest: false,
 			transparent: true,
@@ -245,11 +245,10 @@ export default class Particles {
 
 		uniforms.uRandom.value = targetRandom;
 		uniforms.uDepth.value = targetDepth;
-		uniforms.uSize.value = targetSize; // Set to targetSize directly for immediate visibility
+		uniforms.uSize.value = 0.0; // start small and animate to target
 
-		// If an entrance animation is desired, it can be added here, e.g.:
-		// uniforms.uSize.value = 0.0;
-		// gsap.to(uniforms.uSize, {duration: time, value: targetSize });
+		// animate size to the GUI-selected size
+		gsap.to(uniforms.uSize, { duration: time, value: targetSize });
 
 		this.addListeners();
 
